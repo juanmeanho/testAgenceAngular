@@ -1,0 +1,41 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+
+  .example-icon {
+    padding: 0 0px;
+  }
+  
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .example-button-row a {
+    margin-right: 8px;
+  }
+
+  .consultores-card {
+    min-width: 400px;
+    min-height: 290px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .consultores-bar {
+    min-height: 40px;
+    max-height: 40px;
+  }
+
+  .example-card {
+    margin-top: 0px; 
+  }
+  
+  .list-consultores {
+    overflow: auto;
+    max-height: 250px;
+  }
+
+  table {
+    width: 100%;
+  }

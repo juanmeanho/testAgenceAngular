@@ -1,21 +1,158 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">desktop_mac</mat-icon>
+    <span>&nbsp;&nbsp;&nbsp;Angular</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">exit_to_app</mat-icon>
+    <h1>Salir</h1>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-<router-outlet></router-outlet>
+<mat-card class="example-card " >
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>
+      <button mat-raised-button color="warn">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">date_range</mat-icon>
+        Período de consulta 
+      </button>
+      <div fxLayout="row" fxLayout.xs="column">
+          <mat-form-field>
+            <input matInput [matDatepicker]="desde" placeholder="Desde">
+            <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+            <mat-datepicker #desde startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+          &nbsp;
+          <mat-form-field>
+            <input matInput [matDatepicker]="hasta" placeholder="Hasta">
+            <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+            <mat-datepicker #hasta startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+      </div>
+  </mat-card-title>
+  </mat-card-header><br>
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly">
+      <mat-card class="consultores-card" >
+        <mat-toolbar class="consultores-bar" color="primary">
+          <mat-toolbar-row>
+            <span>Consultores ({{ consultores.length }})</span>
+            <span class="example-spacer"></span>
+              <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">
+                account_box
+              </mat-icon>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-card-content>
+          <mat-list class="list-consultores">
+            <mat-list-item *ngFor="let consultor of consultores index as i;" (click)="passLeft(consultor.co_usuario, consultor.no_usuario, i)">
+              <mat-icon mat-list-icon size="5">fiber_manual_record</mat-icon>
+              <h4 mat-line>{{ consultor.no_usuario }}</h4>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <mat-card fxLayout="column" class="mat-elevation-z0" fxLayoutAlign="center">
+          <button mat-raised-button color="primary" (click)="todosLeft()">
+              Todos 
+              <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">
+                  arrow_forward
+                
+              </mat-icon>
+            </button>
+            <br>
+            <button mat-raised-button color="primary" (click)="todosRight()">
+                <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">
+                  arrow_back
+                </mat-icon>
+                Todos 
+            </button>
+      </mat-card>
+      <mat-card class="consultores-card">
+          <mat-toolbar color="primary" class="consultores-bar">
+              <mat-toolbar-row>
+                <span>Seleccionados ({{ consultores_seleccionados.length }})</span>
+                <span class="example-spacer"></span>
+                  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">
+                    account_box
+                  </mat-icon>
+              </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-card-content>
+                <mat-list class="list-consultores">
+                  <mat-list-item *ngFor="let consultor of consultores_seleccionados index as i;" (click)="passRight(consultor.co_usuario, consultor.no_usuario, i)">
+                    <mat-icon mat-list-icon size="5">fiber_manual_record</mat-icon>
+                    <h4 mat-line>{{ consultor.no_usuario }}</h4>
+                  </mat-list-item>
+                </mat-list>
+              </mat-card-content>
+      </mat-card>
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="primary" (click)="showRelatorio(desde, hasta)">Relatorio</button>
+    <button mat-raised-button color="primary" (click)="showGrafico(desde, hasta)">Gráfico</button>
+    <button mat-raised-button color="primary" (click)="showPizzaChart(desde, hasta)">Pizza</button>
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="showTable">
+    <mat-card *ngFor="let consultor of consultores_seleccionados index as index;"   [style.margin.px]="80">
+      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">
+        account_box
+      </mat-icon>
+      &nbsp;&nbsp;&nbsp;{{ consultor.no_usuario }}
+      <div>
+        <br>
+        <!--Table-->
+        <table id="tablePreview" class="table table-hover table-striped table-sm table-bordered">
+          <!--Table head-->
+            <thead>
+              <tr>
+                <th width="20%">Periodo</th>
+                <th width="20%">Receita Líquida</th>
+                <th width="20%">Custo Fixo</th>
+                <th width="20%">Comissao</th>
+                <th width="20%">Lucro</th>
+              </tr>
+            </thead>
+              <!--Table head-->
+              <!--Table body-->
+            <tbody>
+            <tr *ngFor="let periodo of periodos index as i;">
+              <td > {{ formatDate(periodo.periodo_num) }}</td>
+              <td align="right" > R$ {{ formatMoney(receita_l[index][i]) }}</td>
+              <td align="right" > R$ {{ formatMoney(custo_fixo[index][i]) }}</td>
+              <td align="right" > R$ {{ formatMoney(comissao[index][i]) }}</td>
+              <td align="right" > R$ {{ formatMoney(lucro[index][i]) }}</td>
+            </tr>
+            <tr>
+                <td align="left">Totales</td>
+                <td align="right">R$ {{   suma(receita_l[index]) }}</td>
+                <td align="right">R$ {{   suma(custo_fixo[index]) }}</td>
+                <td align="right">R$ {{   suma(comissao[index]) }}</td>
+                <td align="right" >R$ {{   suma(lucro[index]) }}</td>
+            </tr>
+          </tbody>
+            <!--Table body-->
+        </table>
+      </div>
+     
+    </mat-card>
+  </div>
+  <div *ngIf="showBar">
+    <mat-card [style.margin.px]="80">
+        <app-grafico></app-grafico>
+    </mat-card>
+  </div>
+
+  <div *ngIf="showPizza">
+      <mat-card [style.margin.px]="80">
+          <app-pizza></app-pizza>
+      </mat-card>
+    </div>
+  
